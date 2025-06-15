@@ -1,0 +1,6 @@
+com\libraryproject\LibraryPersistenceApplication.class
+com\libraryproject\model\User.class
+com\libraryproject\repository\UserRepository.class
+com\libraryproject\ServletInitializer.class
+com\libraryproject\auth\ApplicationConfiguration.class
+com\libraryproject\model\User$UserType.class

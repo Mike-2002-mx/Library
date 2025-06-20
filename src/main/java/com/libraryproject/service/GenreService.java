@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.libraryproject.model.Genre;
 import com.libraryproject.repository.GenreRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -26,7 +27,7 @@ public class GenreService {
     }
 
     public Genre getByIdGenre(Integer idGenre){
-        return genreRepository.findById(idGenre).get();
+        return genreRepository.findById(idGenre).orElseThrow(() -> new EntityNotFoundException());
     }
 
     public void delete(Integer idGenre){

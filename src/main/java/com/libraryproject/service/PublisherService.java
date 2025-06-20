@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.libraryproject.model.Publisher;
 import com.libraryproject.repository.PublisherRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -24,7 +25,7 @@ public class PublisherService {
 	}
 
 	public Publisher getByIdPublisher(Integer idPublisher) {
-		return repo.findById(idPublisher).get();
+		return repo.findById(idPublisher).orElseThrow(() -> new EntityNotFoundException("Publisher not found"));
 	}
 
 	public void delete(Integer idPublisher) {

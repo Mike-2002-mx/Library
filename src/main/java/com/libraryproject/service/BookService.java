@@ -9,13 +9,13 @@ import com.libraryproject.dto.BookRequest;
 import com.libraryproject.dto.BookResponse;
 import com.libraryproject.model.Author;
 import com.libraryproject.model.Book;
-import com.libraryproject.model.Collections;
+import com.libraryproject.model.Collection;
 import com.libraryproject.model.Genre;
 import com.libraryproject.model.Publisher;
 import com.libraryproject.repository.AuthorRepository;
 import com.libraryproject.repository.BookRepository;
 import com.libraryproject.repository.BookRepository.BookProjection;
-import com.libraryproject.repository.CollectionsRepository;
+import com.libraryproject.repository.CollectionRepository;
 import com.libraryproject.repository.GenreRepository;
 import com.libraryproject.repository.PublisherRepository;
 
@@ -29,7 +29,7 @@ public class BookService {
 	private BookRepository repo;
 
 	@Autowired
-	private CollectionsRepository collectionsRepository;
+	private CollectionRepository collectionsRepository;
 
 	@Autowired
 	private AuthorRepository authorRepository;
@@ -51,7 +51,7 @@ public class BookService {
 
 
 	public BookResponse save(BookRequest book) {
-		Collections collection = collectionsRepository.findById(book.getIdCollection()).orElseThrow(() -> new EntityNotFoundException("Collection not found"));
+		Collection collection = collectionsRepository.findById(book.getIdCollection()).orElseThrow(() -> new EntityNotFoundException("Collection not found"));
 		Author author =authorRepository.findById(book.getIdAuthor()).orElseThrow(() -> new EntityNotFoundException("Author not found"));
 		Genre genre =genreRepository.findById(book.getIdGenre()).orElseThrow(() -> new EntityNotFoundException("Genre not found"));
 		Publisher publisher = publisherRepository.findById(book.getIdPublisher()).orElseThrow(() -> new EntityNotFoundException("Genre not found"));

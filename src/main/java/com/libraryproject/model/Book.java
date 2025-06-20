@@ -35,7 +35,7 @@ public class Book {
 
     @ManyToOne
     @JoinColumn(name = "idCollection", nullable = false)
-    private Collections collection;
+    private Collection collection;
 
     @Column(nullable = false)
     private String title;

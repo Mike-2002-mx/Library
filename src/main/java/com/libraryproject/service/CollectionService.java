@@ -4,26 +4,26 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.libraryproject.model.Collections;
-import com.libraryproject.repository.CollectionsRepository;
+import com.libraryproject.model.Collection;
+import com.libraryproject.repository.CollectionRepository;
 
 import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
-public class CollectionsService {
+public class CollectionService {
     @Autowired
-    private CollectionsRepository repo;
+    private CollectionRepository repo;
 
-    public List<Collections> getAll(){
+    public List<Collection> getAll(){
         return repo.findAll();
     }
 
-    public void save (Collections collections){
+    public void save (Collection collections){
         repo.save(collections);
     }
 
-    public Collections getByIdCollection(Integer idCollection){
+    public Collection getByIdCollection(Integer idCollection){
         return repo.findById(idCollection).get();
     }
 

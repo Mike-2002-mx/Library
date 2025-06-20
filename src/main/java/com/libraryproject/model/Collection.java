@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "collections")
-public class Collections {
+public class Collection {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,10 +21,10 @@ public class Collections {
     private String collectionTitle;
 
 
-    public Collections() {
+    public Collection() {
     }
 
-    public Collections(int idCollection, String collectionType) {
+    public Collection(int idCollection, String collectionType) {
         this.idCollection = idCollection;
         this.collectionTitle = collectionType;
     }

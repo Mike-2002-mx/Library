@@ -17,37 +17,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.libraryproject.model.Collections;
-import com.libraryproject.service.CollectionsService;
+import com.libraryproject.model.Collection;
+import com.libraryproject.service.CollectionService;
 
 @RestController
 @RequestMapping("collections")
 @CrossOrigin(origins = "http://localhost:3000", methods= {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT})
-public class CollectionsController {
+public class CollectionController {
 
     @Autowired
-	private CollectionsService service;
+	private CollectionService service;
 
     @GetMapping
-	public List<Collections> getAll() {
+	public List<Collection> getAll() {
 		return service.getAll();
 	}
 
     @GetMapping("{idCollection}")
-    public ResponseEntity<Collections> getByIdCollection(@PathVariable int idCollection) {
-		Collections collections = service.getByIdCollection(idCollection);
+    public ResponseEntity<Collection> getByIdCollection(@PathVariable int idCollection) {
+		Collection collections = service.getByIdCollection(idCollection);
 		return new ResponseEntity<>(collections, HttpStatus.OK);
 	}
 
     @PostMapping
-	public void register(@RequestBody Collections collections) {
+	public void register(@RequestBody Collection collections) {
 		service.save(collections);
 	}
 
 	@PutMapping("{idCollection}")
-	public ResponseEntity<?> update(@RequestBody Collections collections, @PathVariable int idCollection) {
+	public ResponseEntity<?> update(@RequestBody Collection collections, @PathVariable int idCollection) {
 		try {
-			Collections auxCollection = service.getByIdCollection(idCollection);
+			Collection auxCollection = service.getByIdCollection(idCollection);
 			collections.setIdCollection(auxCollection.getIdCollection());
 			service.save(collections);
 			return new ResponseEntity<>("Updated record", HttpStatus.OK);

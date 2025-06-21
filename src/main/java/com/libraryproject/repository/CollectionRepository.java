@@ -6,4 +6,5 @@ import com.libraryproject.model.Collection;
 
 public interface CollectionRepository extends JpaRepository<Collection, Integer> {
 
+
 }

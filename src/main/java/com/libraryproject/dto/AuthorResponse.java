@@ -10,7 +10,7 @@ import lombok.Data;
 public class AuthorResponse {
     
     private String authorName;
-    private String surname;
+    private String lastName;
     private String nationality;
     private List<BookProjection> books;
 

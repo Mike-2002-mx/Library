@@ -4,7 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.libraryproject.model.Loans;
+import com.libraryproject.model.Loan;
 import com.libraryproject.repository.LoansRepository;
 
 import jakarta.transaction.Transactional;
@@ -15,15 +15,15 @@ public class LoansService {
     @Autowired
     private LoansRepository repo;
 
-    public List<Loans> getAll() {
+    public List<Loan> getAll() {
 		return repo.findAll();
 	}
 
-	public void save(Loans loans) {
+	public void save(Loan loans) {
 		repo.save(loans);
 	}
 
-	public Loans getByIdLoan(Integer idLoan) {
+	public Loan getByIdLoan(Integer idLoan) {
 		return repo.findById(idLoan).get();
 	}
 

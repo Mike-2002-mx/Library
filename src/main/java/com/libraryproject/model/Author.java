@@ -18,21 +18,21 @@ import lombok.ToString;
 @Setter
 @ToString
 @Entity
-@Table(name="Authors")
+@Table(name="authors")
 public class Author {
     
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(nullable=false, unique = true)
+    @Column(name = "id_author")
     private Integer idAuthor;
 
-    @Column(nullable=false)
+    @Column(name = "author_name")
     private String authorName;
 
-    @Column(nullable=false)
-    private String surname;
+    @Column(name = "last_name")
+    private String lastName;
     
-    @Column(nullable=false)
+    @Column
     private String nationality;
 
 }

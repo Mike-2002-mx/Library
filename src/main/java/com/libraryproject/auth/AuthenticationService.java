@@ -33,23 +33,21 @@ public class AuthenticationService  {
 
     public User signup(RegisterUserDTO input){
         User user = new User();
-        user.setUserName(input.getUserName());
-        user.setFirstSurname(input.getFirstSurmane());
-        user.setSecondSurname(input.getSecondSurname());
-        user.setEmail(input.getEmail());
-        user.setPassword(passwordEncoder.encode(input.getPassword()));
+        user.setName(input.getName());
+        user.setLastName(input.getLastName());
         user.setPhone(input.getPhone());
+        user.setPassword(passwordEncoder.encode(input.getPassword()));
+        user.setAddress(input.getAddress());
         user.setUserType(UserType.fromString(input.getUserType()));
         user.setActive(true);
         
-
         return userRepository.save(user);
     }
 
     public User authenticate(LoginUserDTO input) {
 
         UsernamePasswordAuthenticationToken user = new UsernamePasswordAuthenticationToken(
-                        input.getEmail(),
+                        input.getPhone(),
                         input.getPassword()
                 );
         
@@ -60,7 +58,7 @@ public class AuthenticationService  {
         );
         
 
-        return userRepository.findByEmail(input.getEmail())
+        return userRepository.findByPhone(input.getPhone())
                 .orElseThrow();
     }
 

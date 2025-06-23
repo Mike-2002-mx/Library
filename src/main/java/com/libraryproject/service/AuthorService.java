@@ -41,7 +41,7 @@ public class AuthorService {
         authorResponse.setAuthorName(author.getAuthorName());
         authorResponse.setBooks(books);
         authorResponse.setNationality(author.getNationality());
-        authorResponse.setSurname(author.getSurname());
+        authorResponse.setLastName(author.getLastName());
         return authorResponse;
 
     }

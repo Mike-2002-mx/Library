@@ -6,60 +6,22 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Data;
 
+@Data
 @Entity
-@Table(name = "publisher")
+@Table(name = "publishers")
 public class Publisher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idPublisher")
+    @Column(name = "id_publisher")
     private int idPublisher;
 
-    @Column(name="namePublisher", length = 150 , nullable =false )
+    @Column(name="name_publisher", nullable =false )
     private String namePublisher;
 
-    @Column(name = "country", length = 100)
+    @Column(name = "country")
     private String country;
-
-    public Publisher(){
-
-    }
-    
-    public Publisher(int idPublisher, String namePublisher, String country){
-        this.idPublisher=idPublisher;
-        this.namePublisher=namePublisher;
-        this.country=country;
-    }
-
-    public int getIdPublisher(){
-        return idPublisher;
-    }
-
-    public void setIdPublisher(int idPublisher){
-        this.idPublisher=idPublisher;
-    }
-
-    public String getNamePublisher(){
-        return namePublisher;
-    }
-
-    public void setNamePublisher(String namePublisher){
-        this.namePublisher=namePublisher;
-    }
-
-    public String getCountry(){
-        return country;
-    }
-
-    public void setCountry(String country){
-        this.country=country;
-    }
-
-    @Override
-    public String toString(){
-        return "Publisher [idPublisher=" + idPublisher + ", namePublisher=" + namePublisher +
-        ", country=" + country + "]"; 
-    }
 
 
 }

@@ -57,16 +57,16 @@ public class BookService {
 		Publisher publisher = publisherRepository.findById(book.getIdPublisher()).orElseThrow(() -> new EntityNotFoundException("Genre not found"));
 
 		Book newBook = new Book();
-		newBook.setAcquisitionDate(book.getAcquisitionDate());
-		newBook.setAuthor(author);
-		newBook.setBookStatus(book.getBookStatus());
-		newBook.setCollection(collection);
-		newBook.setGenre(genre);
-		newBook.setNumberPages(book.getNumberPages());
-		newBook.setPublicationYear(book.getPublicationYear());
-		newBook.setPublisher(publisher);
-		newBook.setSummary(book.getSummary());
 		newBook.setTitle(book.getTitle());
+		newBook.setAuthor(author);
+		newBook.setGenre(genre);
+		newBook.setPublisher(publisher);
+		newBook.setCollection(collection);
+		newBook.setPublicationYear(book.getPublicationYear());
+		newBook.setSummary(book.getSummary());
+		newBook.setNumberPages(book.getNumberPages());
+		newBook.setTotalCopies(book.getTotalCopies());
+
 		Book saveBook = repo.save(newBook);	
 		return mapToDto(saveBook);
 
@@ -74,16 +74,15 @@ public class BookService {
 
 	private BookResponse mapToDto(Book request){
 		BookResponse response = new BookResponse();
-		response.setAcquisitionDate(request.getAcquisitionDate());
+		response.setTitle(request.getTitle());
 		response.setAuthorName(request.getAuthor().getAuthorName());
-		response.setBookStatus(request.getBookStatus());
-		response.setCollectionTitle(request.getCollection().getCollectionTitle());
 		response.setGenreTitle(request.getGenre().getNameGenre());
-		response.setNumberPages(request.getNumberPages());
-		response.setPublicationYear(request.getPublicationYear());
+		response.setCollectionTitle(request.getCollection().getNameCollection());
 		response.setPublisherTitle(request.getPublisher().getNamePublisher());
 		response.setSummary(request.getSummary());
-		response.setTitle(request.getTitle());
+		response.setNumberPages(request.getNumberPages());
+		response.setPublicationYear(request.getPublicationYear());
+		response.setTotalCopies(request.getTotalCopies());
 		return response;
 	}
 
@@ -98,13 +97,9 @@ public class BookService {
 		return books.stream().map(this::mapToDto).toList();
 	}
 
-
-
 	public Book getByIdBook(Integer idBook) {
 		return repo.findById(idBook).get();
 	}
-
-	
 
 	public void delete(Integer idBook) {
 		repo.deleteById(idBook);

@@ -20,7 +20,7 @@ public class OpenApiConfig {
             .info(new Info()
                 .title("API -  Sistema de gestión de biblioteca")
                 .version("1.0")
-                .description("Documentación de la API para la plataforma de fortalecimiento de habilidades emprendedoras."))
+                .description("Documentación de la API para la plataforma de gestión de una biblioteca"))
             .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
             .components(new Components()
                 .addSecuritySchemes(securitySchemeName,

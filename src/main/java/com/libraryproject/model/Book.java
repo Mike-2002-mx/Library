@@ -1,7 +1,5 @@
 package com.libraryproject.model;
 
-import java.time.LocalDateTime;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -27,44 +25,41 @@ import lombok.ToString;
 @Entity
 @Table(name = "books")
 public class Book {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idBook", nullable = false)
+    @Column(name = "id_book", nullable = false)
     private Integer idBook;
-
-    @ManyToOne
-    @JoinColumn(name = "idCollection", nullable = false)
-    private Collection collection;
 
     @Column(nullable = false)
     private String title;
 
     @ManyToOne
-    @JoinColumn(name = "idAuthor", nullable = false)
+    @JoinColumn(name = "id_author", nullable = false)
     @JsonIgnore
     private Author author;
 
     @ManyToOne
-    @JoinColumn(name = "idGenre", nullable = false)
+    @JoinColumn(name = "id_genre", nullable = false)
     private Genre genre;
 
     @ManyToOne
-    @JoinColumn(name = "idPublisher", nullable = false)
+    @JoinColumn(name = "id_publisher", nullable = false)
     private Publisher publisher;
 
-    @Column(nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "id_collection", nullable = false)
+    private Collection collection;
+
+    @Column(name = "publication_year")
     private Integer publicationYear;
 
-    @Column(nullable = false)
+    @Column
     private String summary;
 
-    @Column(nullable = false)
+    @Column(name = "number_pages")
     private Integer numberPages;
 
-    @Column(nullable = false)
-    private String bookStatus;
+    @Column(name = "total_copies")
+    private Integer totalCopies;
 
-    @Column(nullable = false)
-    private LocalDateTime acquisitionDate;
 }

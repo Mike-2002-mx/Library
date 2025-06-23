@@ -11,7 +11,7 @@ import lombok.*;
 public class AuthorRequestDTO {
 
     private String authorName;
-    private String surname;
+    private String lastName;
     private String nationality;
 
 }

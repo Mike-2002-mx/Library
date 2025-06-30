@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.libraryproject.dto.UserLectorRequest;
 import com.libraryproject.model.User;
 import com.libraryproject.service.UserService;
 
@@ -24,6 +25,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("users")
@@ -61,6 +63,16 @@ public class UserController {
         service.save(user);
     }
 
+    @Operation(summary = "Add Lector")
+    @ApiResponse(responseCode = "200", description = "Add Lector", content = {
+        @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = User.class)))
+    })
+    @PostMapping("/addUserLector")
+    public ResponseEntity<User> addUserLector(@Valid @RequestBody UserLectorRequest user){
+        User lector = service.saveLector(user);
+        return ResponseEntity.ok(lector);
+    }
+
     @Operation(summary = "Update User")
     @ApiResponse(responseCode = "200", description = "Update User", content = {
         @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = User.class)))
@@ -72,4 +84,6 @@ public class UserController {
         service.save(user);
         return new ResponseEntity<>("Updated record", HttpStatus.OK);
     }
+
+
 }

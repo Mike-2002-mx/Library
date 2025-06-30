@@ -34,7 +34,7 @@ public class User implements UserDetails {
     @Column(name = "last_name") //Apellidos
     private String lastName;
 
-    @Column(name = "phone")
+    @Column(name = "phone", unique = true)
     private String phone;
 
     @Column(name = "password")

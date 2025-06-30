@@ -32,6 +32,8 @@ CREATE TABLE users	(
   active boolean NOT NULL
 );
 
+
+
 CREATE TABLE books	(
   id_book SERIAL PRIMARY KEY,
   title VARCHAR (150) NOT NULL,

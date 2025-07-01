@@ -23,11 +23,11 @@ CREATE TABLE publishers (
 
 CREATE TABLE users	(
   id_user SERIAL PRIMARY KEY,
-  name VARCHAR (50) NOT NULL,
-  last_name VARCHAR (100) NOT NULL,
-  phone VARCHAR (50) UNIQUE NOT NULL,
-  password VARCHAR (255) NOT NULL,
-  address VARCHAR (255) NOT NULL,
+  name VARCHAR (50) NOT NULL CHECK (name <> ''),
+  last_name VARCHAR (100) NOT NULL CHECK (last_name <> ''),
+  phone VARCHAR (50) UNIQUE NOT NULL CHECK (phone <> ''),
+  password VARCHAR (255) NOT NULL CHECK (password <> ''),
+  address VARCHAR (255) NOT NULL CHECK (address  <> ''),
   user_type VARCHAR (50) NOT NULL,
   active boolean NOT NULL
 );

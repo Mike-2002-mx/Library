@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.libraryproject.dto.UserLectorRequest;
-import com.libraryproject.dto.UserLectorResponse;
 import com.libraryproject.model.User;
 import com.libraryproject.model.User.UserType;
 import com.libraryproject.repository.UserRepository;

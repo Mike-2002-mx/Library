@@ -3,6 +3,7 @@ package com.libraryproject.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.libraryproject.dto.UserLectorRequest;
@@ -35,7 +36,8 @@ public class UserService {
         lector.setName(request.getName());
         lector.setPhone(request.getPhone());
         lector.setUserType(UserType.LECTOR);
-        lector.setPassword(request.getPassword());
+        // lector.setPassword(request.getPassword());
+        lector.setPassword(new BCryptPasswordEncoder().encode(request.getPassword()));
         User saveLector = userRepository.save(lector);        
         return saveLector;
     }

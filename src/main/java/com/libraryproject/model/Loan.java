@@ -27,7 +27,7 @@ public class Loan {
 
     @Column(name="loan_date", nullable = false)
     private Date loanDate;
-
+    
     @Column(name="estimatedReturnDate")
     private Date estimatedReturnDate;
 

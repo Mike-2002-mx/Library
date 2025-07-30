@@ -38,7 +38,7 @@ public class AuthorController {
 
     @Operation(summary="Get all authors")
     @ApiResponse(responseCode="200", description="Found authors", content={
-        @Content(mediaType="application/json", array=@ArraySchema(schema=@Schema(implementation=Author.class)))   
+        @Content(mediaType="application/json", array=@ArraySchema(schema=@Schema(implementation=AuthorResponse.class)))   
     })
     @GetMapping
     public List<Author> getAll(){
@@ -48,7 +48,7 @@ public class AuthorController {
 
     @Operation(summary = "Gets author using id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Found the author", content = @Content(schema = @Schema(implementation = Author.class))),
+            @ApiResponse(responseCode = "200", description = "Found the author", content = @Content(schema = @Schema(implementation = AuthorResponse.class))),
             @ApiResponse(responseCode = "404", description = "author doesn't exits", content = @Content(schema = @Schema(implementation = ExceptionHandlerAdvice.class))),
             @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(schema = @Schema(implementation = ExceptionHandlerAdvice.class)))
     })
@@ -58,19 +58,10 @@ public class AuthorController {
         return new ResponseEntity<AuthorResponse>(author, HttpStatus.CREATED);
     }
 
-    	// @Operation(summary = "Register a manufacturing order")
-    	// @ApiResponse(responseCode = "201", description = "Registered manufacturing order", content = {
-    	// 		@Content(mediaType = "application/json", schema = @Schema(implementation = ManufacturingOrder.class)) })
-    	// @PostMapping
-    	// public ResponseEntity<ManufacturingOrder> add(
-    	// 		@RequestBody ManufacturingOrderRequestDTO manufacturingOrderRequestDTO) {
-    	// 	ManufacturingOrder savedManufacturingOrder = service.save(convertToEntity(manufacturingOrderRequestDTO));
-    	// 	return new ResponseEntity<ManufacturingOrder>(savedManufacturingOrder, HttpStatus.CREATED);
-    	// }
 
     @Operation(summary = "Add new author")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Save record", content = @Content(schema = @Schema(implementation = Author.class))),
+            @ApiResponse(responseCode = "200", description = "Save record", content = @Content(schema = @Schema(implementation = AuthorResponse.class))),
             @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(schema = @Schema(implementation = ExceptionHandlerAdvice.class)))
     })
     @PostMapping
@@ -80,23 +71,10 @@ public class AuthorController {
         return new ResponseEntity<String>("Autor guardado correctamente", HttpStatus.CREATED);
     }
 
-    // @Operation(summary = "Update author")
-    // @ApiResponses(value = {
-    //         @ApiResponse(responseCode = "200", description = "Author updated successfully",content = @Content(schema = @Schema(implementation = Author.class))),
-    //         @ApiResponse(responseCode = "404", description = "Author doesn't exits",content = @Content(schema = @Schema(implementation = ExceptionHandlerAdvice.class)))
-
-    // })
-    // @PutMapping("{id}")
-    // public ResponseEntity<?> updateAuthor(@PathVariable Integer id ,@RequestBody Author author) {
-    //     Author  auxAuthor = authorService.getById(id);
-    //     author.setIdAuthor(auxAuthor.getIdAuthor());
-    //     authorService.save(author);
-    //     return  new ResponseEntity<String>("Autor guardado correctamente", HttpStatus.OK);
-    // }
 
     @Operation(summary = "Delete author")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "The author was removed", content = @Content(schema = @Schema(implementation = Author.class))),
+            @ApiResponse(responseCode = "200", description = "The author was removed", content = @Content(schema = @Schema(implementation = AuthorResponse.class))),
             @ApiResponse(responseCode = "404", description = "author doesn't exits", content = @Content(schema = @Schema(implementation = ExceptionHandlerAdvice.class)))
     })
     @DeleteMapping("/{id}")
@@ -106,7 +84,7 @@ public class AuthorController {
 
     @Operation(summary = "Search Author by name")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Author found", content = @Content(schema = @Schema(implementation = Author.class))),
+            @ApiResponse(responseCode = "200", description = "Author found", content = @Content(schema = @Schema(implementation = AuthorResponse.class))),
             @ApiResponse(responseCode = "404", description = "Author doesn't exits", content = @Content(schema = @Schema(implementation = ExceptionHandlerAdvice.class))),
             @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(schema = @Schema(implementation = ExceptionHandlerAdvice.class)))
     })
@@ -118,7 +96,7 @@ public class AuthorController {
 
     @Operation(summary = "Search Author by nationality")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Author found", content = @Content(schema = @Schema(implementation = Author.class))),
+            @ApiResponse(responseCode = "200", description = "Author found", content = @Content(schema = @Schema(implementation = AuthorResponse.class))),
             @ApiResponse(responseCode = "404", description = "author doesn't exits", content = @Content(schema = @Schema(implementation = ExceptionHandlerAdvice.class)))
     })
     @GetMapping("/searchNationality/{nationality}")
@@ -127,9 +105,4 @@ public class AuthorController {
         return  new ResponseEntity<List<Author>>(authors, HttpStatus.OK);
     }
     
-
-    // private Author convertToDTO(AuthorRequestDTO authorRequestDTO){
-    //     return modelMapper.map(authorRequestDTO, Author.class);
-    // }
-
 }

@@ -3,7 +3,6 @@ package com.libraryproject.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.libraryproject.dto.BookRequest;
@@ -39,9 +38,6 @@ public class BookService {
 
 	@Autowired 
 	private GenreRepository genreRepository;
-
-	@Autowired
-	private ModelMapper modelMapper;
 
 
 	public List<BookResponse> getAll() {

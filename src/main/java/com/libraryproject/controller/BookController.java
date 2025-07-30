@@ -49,7 +49,7 @@ public class BookController {
 
 	@Operation(summary = "Get a book through Id.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Found book.", content = @Content(schema = @Schema(implementation = Book.class))),
+            @ApiResponse(responseCode = "200", description = "Found book.", content = @Content(schema = @Schema(implementation = BookResponse.class))),
             @ApiResponse(responseCode = "400", description = "Bad request.", content = @Content(schema = @Schema(implementation = ExceptionHandlerAdvice.class))),
 			@ApiResponse(responseCode = "404", description = "The book requested doesn't exists.", content = @Content(schema = @Schema(implementation = ExceptionHandlerAdvice.class))),
     })
@@ -63,7 +63,7 @@ public class BookController {
 
 	@Operation(summary = "Add new books.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successfully registered book.", content = @Content(schema = @Schema(implementation = Book.class))),
+            @ApiResponse(responseCode = "200", description = "Successfully registered book.", content = @Content(schema = @Schema(implementation = BookResponse.class))),
             @ApiResponse(responseCode = "400", description = "Bad request.", content = @Content(schema = @Schema(implementation = ExceptionHandlerAdvice.class)))
     })
 	@PostMapping
@@ -72,24 +72,10 @@ public class BookController {
 		return ResponseEntity.ok(response);
 	}
 
-	// @Operation(summary = "Update book")
-    // @ApiResponses(value = {
-    //         @ApiResponse(responseCode = "200", description = "Successfully updated book.",content = @Content(schema = @Schema(implementation = Book.class))),
-	// 		@ApiResponse(responseCode = "400", description = "Bad request.", content = @Content(schema = @Schema(implementation = ExceptionHandlerAdvice.class))),
-    //         @ApiResponse(responseCode = "404", description = "The book requested doesn't exists.",content = @Content(schema = @Schema(implementation = ExceptionHandlerAdvice.class)))
-    // })
-	// @PutMapping("{idBook}")
-	// public ResponseEntity<?> update(@RequestBody Book book, @PathVariable Integer idBook) {
-	// 	Book auxBook = service.getByIdBook(idBook);
-	// 	book.setIdBook(auxBook.getIdBook());
-	// 	service.save(book);
-	// 	return new ResponseEntity<>("Updated record", HttpStatus.OK);
-	// }
-
 
 	@Operation(summary = "Delete book")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "This book was removed from the database.", content = @Content(schema = @Schema(implementation = Book.class))),
+            @ApiResponse(responseCode = "200", description = "This book was removed from the database.", content = @Content(schema = @Schema(implementation = BookResponse.class))),
             @ApiResponse(responseCode = "400", description = "Bad request.", content = @Content(schema = @Schema(implementation = ExceptionHandlerAdvice.class))),
 			@ApiResponse(responseCode = "404", description = "The book requested doesn't exists.", content = @Content(schema = @Schema(implementation = ExceptionHandlerAdvice.class)))
     })
@@ -99,15 +85,5 @@ public class BookController {
 		service.delete(idBook);
 	}
 
-	@Operation(summary = "Search Books of Author")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Books founds", content = @Content(schema = @Schema(implementation = BookResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Books doesn't exits", content = @Content(schema = @Schema(implementation = ExceptionHandlerAdvice.class)))
-    })
-    @GetMapping("/findBooksByAuthorId/{authorId}")
-    public ResponseEntity<List<BookResponse>> getBooksByAuthorId(@PathVariable Integer authorId){
-        List<BookResponse> books = service.getBooksByAuthorId(authorId);
-        return  new ResponseEntity<List<BookResponse>>(books, HttpStatus.OK);
-    }
 
 }

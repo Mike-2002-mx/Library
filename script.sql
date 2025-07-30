@@ -61,27 +61,27 @@ CREATE TABLE books_genres (
   FOREIGN KEY(id_genre) REFERENCES genres(id_genre)
 );
 
-CREATE TYPE state_copy AS ENUM ('disponible', 'prestado', 'dañado', 'perdido');
+-- CREATE TYPE state_copy AS ENUM ('disponible', 'prestado', 'dañado', 'perdido');
 
-CREATE TABLE book_copies (
-  id SERIAL PRIMARY KEY,
-  id_book INT NOT NULL,
-  state state_copy NOT NULL, 
-  updated_at TIMESTAMP DEFAULT now(),
-  FOREIGN KEY(id_book) REFERENCES books(id_book)
-);
+-- CREATE TABLE book_copies (
+--   id SERIAL PRIMARY KEY,
+--   id_book INT NOT NULL,
+--   state state_copy NOT NULL, 
+--   updated_at TIMESTAMP DEFAULT now(),
+--   FOREIGN KEY(id_book) REFERENCES books(id_book)
+-- );
 
-CREATE TYPE loan_status AS ENUM ('activo', 'devuelto', 'vencido', 'cancelado');
+-- CREATE TYPE loan_status AS ENUM ('activo', 'devuelto', 'vencido', 'cancelado');
 
-CREATE TABLE loans (
-  id SERIAL PRIMARY KEY,
-  id_user INT NOT NULL,
-  id_book_copy INT NOT NULL,
-  loan_date DATE NOT NULL DEFAULT CURRENT_DATE,
-  due_date DATE NOT NULL,
-  return_date DATE,
-  status loan_status NOT NULL DEFAULT 'activo',
-  summary VARCHAR(255),
-  FOREIGN KEY (id_user) REFERENCES users(id_user),
-  FOREIGN KEY (id_book_copy) REFERENCES book_copies(id)
-);
+-- CREATE TABLE loans (
+--   id SERIAL PRIMARY KEY,
+--   id_user INT NOT NULL,
+--   id_book_copy INT NOT NULL,
+--   loan_date DATE NOT NULL DEFAULT CURRENT_DATE,
+--   due_date DATE NOT NULL,
+--   return_date DATE,
+--   status loan_status NOT NULL DEFAULT 'activo',
+--   summary VARCHAR(255),
+--   FOREIGN KEY (id_user) REFERENCES users(id_user),
+--   FOREIGN KEY (id_book_copy) REFERENCES book_copies(id)
+-- );

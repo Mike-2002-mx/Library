@@ -36,7 +36,6 @@ public class AuthorService {
         authorResponse.setNationality(author.getNationality());
         authorResponse.setLastName(author.getLastName());
         return authorResponse;
-
     }
 
     public void delete(Integer id){

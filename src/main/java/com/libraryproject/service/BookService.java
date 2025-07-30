@@ -1,6 +1,7 @@
 package com.libraryproject.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import com.libraryproject.model.Genre;
 import com.libraryproject.model.Publisher;
 import com.libraryproject.repository.AuthorRepository;
 import com.libraryproject.repository.BookRepository;
-import com.libraryproject.repository.BookRepository.BookProjection;
 import com.libraryproject.repository.CollectionRepository;
 import com.libraryproject.repository.GenreRepository;
 import com.libraryproject.repository.PublisherRepository;
@@ -52,14 +52,14 @@ public class BookService {
 
 	public BookResponse save(BookRequest book) {
 		Collection collection = collectionsRepository.findById(book.getIdCollection()).orElseThrow(() -> new EntityNotFoundException("Collection not found"));
-		Author author =authorRepository.findById(book.getIdAuthor()).orElseThrow(() -> new EntityNotFoundException("Author not found"));
-		Genre genre =genreRepository.findById(book.getIdGenre()).orElseThrow(() -> new EntityNotFoundException("Genre not found"));
+		List<Author> authors = authorRepository.findAllById(book.getIdAuthors());
+		List<Genre> genres = genreRepository.findAllById(book.getIdGenres());
 		Publisher publisher = publisherRepository.findById(book.getIdPublisher()).orElseThrow(() -> new EntityNotFoundException("Genre not found"));
 
 		Book newBook = new Book();
 		newBook.setTitle(book.getTitle());
-		newBook.setAuthor(author);
-		newBook.setGenre(genre);
+		newBook.setAuthors(authors.stream().collect(Collectors.toSet()));
+		newBook.setGenres(genres.stream().collect(Collectors.toSet()));
 		newBook.setPublisher(publisher);
 		newBook.setCollection(collection);
 		newBook.setPublicationYear(book.getPublicationYear());
@@ -72,29 +72,26 @@ public class BookService {
 
 	}
 
-	private BookResponse mapToDto(Book request){
+	private BookResponse mapToDto(Book entity){
 		BookResponse response = new BookResponse();
-		response.setTitle(request.getTitle());
-		response.setAuthorName(request.getAuthor().getAuthorName());
-		response.setGenreTitle(request.getGenre().getNameGenre());
-		response.setCollectionTitle(request.getCollection().getNameCollection());
-		response.setPublisherTitle(request.getPublisher().getNamePublisher());
-		response.setSummary(request.getSummary());
-		response.setNumberPages(request.getNumberPages());
-		response.setPublicationYear(request.getPublicationYear());
-		response.setTotalCopies(request.getTotalCopies());
+		response.setGenreTitles(entity.getGenres()
+			.stream()
+			.map(Genre::getNameGenre)
+			.collect(Collectors.toSet())
+			);
+		response.setAuthorNames(entity.getAuthors()
+			.stream()
+			.map(Author::getAuthorName)
+			.collect(Collectors.toSet())
+			);
+		response.setTitle(entity.getTitle());
+		response.setCollectionTitle(entity.getCollection().getNameCollection());
+		response.setPublisherTitle(entity.getPublisher().getNamePublisher());
+		response.setSummary(entity.getSummary());
+		response.setNumberPages(entity.getNumberPages());
+		response.setPublicationYear(entity.getPublicationYear());
+		response.setTotalCopies(entity.getTotalCopies());
 		return response;
-	}
-
-
-
-    private BookResponse mapToDto(BookProjection request){
-		return modelMapper.map(request, BookResponse.class);
-	}
-
-	public List<BookResponse> getBooksByAuthorId(Integer AuthorId){
-		List<BookProjection> books = repo.findBooksByAuthorId(AuthorId);
-		return books.stream().map(this::mapToDto).toList();
 	}
 
 	public Book getByIdBook(Integer idBook) {

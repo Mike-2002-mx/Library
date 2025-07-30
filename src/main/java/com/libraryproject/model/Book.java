@@ -1,6 +1,7 @@
 package com.libraryproject.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,6 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -33,14 +36,21 @@ public class Book {
     @Column(nullable = false)
     private String title;
 
-    @ManyToOne
-    @JoinColumn(name = "id_author", nullable = false)
-    @JsonIgnore
-    private Author author;
+    @ManyToMany
+    @JoinTable(
+        name = "books_genres",
+        joinColumns = @JoinColumn(name="id_book"),
+        inverseJoinColumns = @JoinColumn(name =  "id_genre")
+    )
+    private Set<Genre> genres = new HashSet<>();
 
-    @ManyToOne
-    @JoinColumn(name = "id_genre", nullable = false)
-    private Genre genre;
+    @ManyToMany
+    @JoinTable(
+        name = "books_authors",
+        joinColumns = @JoinColumn(name="id_book"),
+        inverseJoinColumns = @JoinColumn(name =  "id_author")
+    )
+    private Set<Author> authors = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "id_publisher", nullable = false)

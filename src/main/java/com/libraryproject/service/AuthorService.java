@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 import com.libraryproject.dto.AuthorResponse;
 import com.libraryproject.model.Author;
 import com.libraryproject.repository.AuthorRepository;
-import com.libraryproject.repository.BookRepository;
-import com.libraryproject.repository.BookRepository.BookProjection;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -21,9 +19,6 @@ public class AuthorService {
     
     @Autowired
     private AuthorRepository authorRepository;
-
-    @Autowired
-    private BookRepository bookRepository;
 
     public List<Author> getAll(){
         return authorRepository.findAll();
@@ -36,10 +31,8 @@ public class AuthorService {
 
     public AuthorResponse getById(Integer id){
         Author author = authorRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Author not found"));
-        List<BookProjection> books = bookRepository.findBooksByAuthorId(id);
         AuthorResponse authorResponse = new AuthorResponse();
         authorResponse.setAuthorName(author.getAuthorName());
-        authorResponse.setBooks(books);
         authorResponse.setNationality(author.getNationality());
         authorResponse.setLastName(author.getLastName());
         return authorResponse;

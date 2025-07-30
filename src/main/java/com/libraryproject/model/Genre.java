@@ -1,4 +1,5 @@
 package com.libraryproject.model;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,6 +20,5 @@ public class Genre {
 
     @Column(name = "name_genre", length = 100)
     private String nameGenre;
-
 
 }
